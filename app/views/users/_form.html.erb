@@ -1,0 +1,38 @@
+<%= form_with(model: user, local: true) do |form| %>
+  <% if user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :profile %>
+    <%=form.fields_for :profile,OpenStruct.new(user.profile) do |d| %>
+      <%=d.label :first_name%>
+      <%=d.text_field :first_name,promt: "enter the username which is first name"%>
+      <%=d.label :last_name%>
+      <%=d.text_field :last_name,promt: "enter the username which is last name"%>
+      <%=d.label :email%>
+      <%=d.text_field :email,promt: "enter the username which is email"%>
+      <%=d.label :telephone%>
+      <%=d.text_field :telephone,promt: "enter the username which is telephone number"%>
+      <%=d.label :cousins %>
+      <%=d.text_field :cousins,multipart: true %>
+    <%end%>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
